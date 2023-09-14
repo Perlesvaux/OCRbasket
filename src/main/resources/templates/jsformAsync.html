@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<style>
+   html {
+        filter:invert(90%);
+    }
+</style>
+    <title>My Form</title>
+</head>
+<body>
+
+    <h1>Upload a File</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".png, .jpg, .jpeg, .gif, .bmp" required>
+        <br>
+        <button type="submit">Upload</button>
+    </form>
+    <div id="result"></div>
+
+    <!-- Retrieving user input -->
+    <!-- <h1>new pal!</h1> -->
+    <!-- <input type="text" id="in_box"> -->
+    <!-- <button id="add">Add!</button> -->
+    <!-- <button id="show">It's showtime!</button> -->
+
+    <!-- <h1>Upload a File</h1> -->
+    <!-- <form action="/upload" method="post" enctype="multipart/form-data"> -->
+    <!--     <input type="file" name="file" accept=".png, .jpg, .jpeg, .gif, .bmp" required> -->
+    <!--     <br> -->
+    <!--     <button type="submit">Upload</button> -->
+    <!-- </form> -->
+    <!-- Display the list of items -->
+    <!-- <ul id="itemList"></ul> -->
+    
+    <script>
+
+document.getElementById('uploadButton').addEventListener('click', async () => {
+    const fileInput = document.getElementById('fileInput');
+    const resultDiv = document.getElementById('result');
+
+    const file = fileInput.files[0];
+    if (!file) {
+        resultDiv.innerText = 'Please select a file.';
+        return;
+    }
+
+    try {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData,
+        });
+
+        if (response.ok) {
+            const text = await response.text();
+            resultDiv.innerText = text;
+        } else {
+            resultDiv.innerText = 'Error uploading the file.';
+        }
+    } catch (error) {
+        resultDiv.innerText = 'An error occurred: ' + error.message;
+    }
+});
+
+// function fetchItems() {
+//     const itemList = document.getElementById('itemList');
+//     itemList.innerHTML="" //Clear out display
+//     fetch('/enrolled')    //API endpoint, mapped to GET
+//     .then(response => response.json())
+//     .then(data => { 
+//     data.forEach(x => itemList.innerHTML+= `<li>${x.last}</li> <button class="del" id="xid-${x.id}">x</button> <button class="mod" id="mid-${x.id}">edit</button>`)
+// 
+// 
+//     const del_student = document.getElementsByClassName("del")   
+//     for (key of del_student) {
+//         const each_sid = key.id.match(/\d+/)[0]
+//         key.addEventListener("click", ()=>{
+//         fetch(`/remove/${each_sid}`, { //API endpoint, mapped to DELETE
+//         method: 'DELETE'
+//         })
+//         setTimeout(fetchItems, 100)
+//         })        
+//     }
+// 
+//     const mod_student = document.getElementsByClassName("mod")
+//     for (key of mod_student) {
+//         const each_mid = key.id.match(/\d+/)[0]
+//         key.addEventListener("click", ()=>{
+//         
+// 
+// 
+//     const userInput = document.getElementById("in_box").value.split(", ")
+//     const stuData = {     //User input is dumped into a JSON
+//                 "first":   userInput[0],
+//                 "last":    userInput[1],
+//                 "enabled": userInput[2]=="true".toLowerCase() 
+//             }
+// 
+//     console.log(stuData)
+//                     
+//     fetch(`/modify/${each_mid}`, {     //API endpoint, mapped to PUT
+//     method: 'PUT',
+//     headers: {'Content-Type': 'application/json'},
+//     body: JSON.stringify(stuData)
+//     })
+//     .catch(error => {
+//     console.error('Error:', error);
+//     });
+// 
+//         setTimeout(fetchItems, 100)
+// 
+// 
+// 
+// 
+// 
+//         })        
+// 
+//     }
+// 
+//     })
+//     .catch(error => console.error('Error fetching items:', error));
+// }
+
+//Display
+//const itemList = document.getElementById('itemList');
+
+//Draw elements on screen
+//async function redraw(data){
+//    itemList.innerHTML= ""
+//    const current = await data;
+//    current.forEach(x => itemList.innerHTML+= `<li>${x.last}</li> <button onclick="deleteStudent(${x.id})">delete</button> <button onclick="updateStudent(${x.id})">edit</button>`)
+//}
+
+//User input 
+//const userInput = document.getElementById("in_box")
+
+//User input dumped into a JSON
+//function stuData(){
+//const data = userInput.value.split(", ")
+//    return {     
+//              "first":   data[0],
+//              "last":    data[1],
+//              "enabled": data[2]=="true".toLowerCase() 
+//           }
+//        }
+
+//POST JSON
+//function POSTmsg(){ 
+//    return {
+//              method: 'POST',
+//              headers: {'Content-Type': 'application/json'},
+//              body: JSON.stringify(stuData())
+//            }
+//        }
+
+
+//POST JSON
+//function PUTmsg(){ 
+//    return {
+//              method: 'PUT',
+//              headers: {'Content-Type': 'application/json'},
+//              body: JSON.stringify(stuData())
+//            }
+//        }
+
+
+//--GET--
+//async function fetchItems() {
+//  try {
+//    const response = await fetch('/enrolled');
+//    const data = await response.json();
+//    // Handle the data from the GET request here
+//    console.log(data);
+//    return data;
+//  } catch (error) {
+//    console.error('Error:', error);
+//  }
+//}
+
+
+//--POST--
+//async function addStudent() {
+//  try {
+//    await fetch('/enroll', POSTmsg());
+//    redraw(fetchItems());
+//
+//  } catch (error) {
+//    console.error('Error:', error);
+//  }
+//}
+
+
+//--DELETE--
+//async function deleteStudent(each_id){
+//  try {
+//    await fetch(`/remove/${each_id}`, {method: 'DELETE'});
+//    redraw(fetchItems());
+//  } catch (error) {
+//    console.error('Error:', error);
+//  }
+//}
+
+
+//--PUT--
+//async function updateStudent(each_id){
+//  try{
+//    await fetch(`/modify/${each_id}`, PUTmsg());
+//    redraw(fetchItems());
+//
+//  } catch (error) {
+//    console.error('Error:', error);
+//  }
+//}
+
+
+
+// function addStudent(){
+//     const userInput = document.getElementById("in_box").value.split(", ")
+//     const stuData = {     //User input is dumped into a JSON
+//                 "first":   userInput[0],
+//                 "last":    userInput[1],
+//                 "enabled": userInput[2]=="true".toLowerCase() 
+//             }
+//     console.log(stuData)
+// 
+//     fetch('/enroll', {    //API endpoint, mapped to POST
+//     method: 'POST',
+//     headers: {'Content-Type': 'application/json'},
+//     body: JSON.stringify(stuData)
+//     })
+//     .catch(error => {
+//     console.error('Error:', error);
+//     });
+// }
+
+
+//Initial listing upon screen-load!        
+//redraw(fetchItems())
+
+
+//Button mappings!
+//const display_list = document.getElementById("show")
+//display_list.addEventListener("click", ()=>{redraw(fetchItems())})
+//
+//const add_new_student = document.getElementById("add")
+//add_new_student.addEventListener("click", ()=>{addStudent()})
+
+
+
+        
+    </script>
+</body>
+</html>
