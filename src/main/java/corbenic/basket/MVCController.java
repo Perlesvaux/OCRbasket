@@ -14,4 +14,9 @@ public class MVCController{
     public String homepage(){
      return "homepage";
     }
+
+    @GetMapping("/homer")
+    public String homeSecond(){
+     return "homepageSecond";
+    }
 }

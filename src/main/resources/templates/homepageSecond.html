@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Paste Image</title>
+</head>
+<body>
+    <h1>Paste an Image</h1>
+    <div id="imageContainer"></div>
+    <div id="result"></div>
+
+
+
+    <script>
+        const imageContainer = document.getElementById('imageContainer');
+        const resultDiv = document.getElementById('result');
+
+document.addEventListener('paste', async (event) => {
+    const items = event.clipboardData.items;
+
+    for (const item of items) {
+        if (item.type.indexOf('image') !== -1) {
+            const blob     = item.getAsFile();
+            const imageUrl = URL.createObjectURL(blob);
+
+            const imageElement = document.createElement('img');
+            imageElement.src = imageUrl;
+
+            // You can append the image to a container or use it as needed
+            imageContainer.appendChild(imageElement);
+
+            // Handle the image (e.g., upload to the server, process, etc.)
+            //handleImage(blob);
+
+
+
+    try {
+        const formData = new FormData();
+        formData.append('file', blob);
+
+        const response = await fetch('/upload', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                // Important: Omit 'Content-Type' header to let Spring handle it
+            },
+        });
+
+        if (response.ok) {
+            const text = await response.text();
+            resultDiv.innerText = text;
+        } else {
+            resultDiv.innerText = 'Error uploading the file.';
+        }
+    } catch (error) {
+        resultDiv.innerText = 'An error occurred: ' + error.message;
+    }
+
+
+
+
+        }
+    }
+});
+    </script>
+</body>
+</html>
+
