@@ -10,13 +10,13 @@ public class MVCController{
      return "jsformAsync";
     }
 
-    @GetMapping("/home")
-    public String homepage(){
-     return "homepage";
+    @GetMapping("/fromfile")
+    public String fromfile(){
+     return "fromfile";
     }
 
-    @GetMapping("/homer")
-    public String homeSecond(){
-     return "homepageSecond";
+    @GetMapping("/frompaste")
+    public String frompaste(){
+     return "frompaste";
     }
 }
