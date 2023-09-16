@@ -15,6 +15,7 @@ public class MVCController{
      return "fromfile";
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/frompaste")
     public String frompaste(){
      return "frompaste";

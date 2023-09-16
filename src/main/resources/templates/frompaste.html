@@ -4,15 +4,15 @@
     <title>Paste Image</title>
 </head>
 <body>
-    <h1>Paste an Image</h1>
+    <h1>Paste some Image</h1>
     <div id="imageContainer"></div>
     <div id="result"></div>
 
 
 
     <script>
-        const imageContainer = document.getElementById('imageContainer');
-        const resultDiv = document.getElementById('result');
+const imageContainer = document.getElementById('imageContainer');
+const resultDiv = document.getElementById('result');
 
 document.addEventListener('paste', async (event) => {
     const items = event.clipboardData.items;

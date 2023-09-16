@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.*;
 import org.springframework.util.FileCopyUtils;
 import net.sourceforge.tess4j.TesseractException;
+// import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 public class Basket{
@@ -19,6 +20,7 @@ public class Basket{
     @Autowired
     BasketService uploader;
 
+    // @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/upload")
     public String uploadingFile(@RequestBody MultipartFile file) throws IllegalStateException, IOException, TesseractException{
 
@@ -37,7 +39,12 @@ public class Basket{
         String result = "";
         try{
             FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(temp));
-            result = Ocr.dump(temp);
+            result = Ocr.dump(
+                        Scaling.process(temp)
+                        // temp
+                    );
+            // result = Ocr.dump(temp);
+
         return result;
         } catch(IOException e) {
             result =  "mission failed :p";
