@@ -24,7 +24,7 @@ public class Ocr{
     public static String dump (BufferedImage bi) throws TesseractException{
         Tesseract t = new Tesseract();
         // t.setVariable("dpi", "300"); // Set DPI to 300
-        t.setVariable("user_defined_dpi", "600"); // Set DPI to 300
+        t.setVariable("user_defined_dpi", "300"); // Set DPI to 300
         t.setDatapath("/usr/share/tesseract-ocr/4.00/tessdata");
         return t.doOCR(bi);
 

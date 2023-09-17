@@ -44,7 +44,7 @@ public class Basket{
                         // temp
                     );
             // result = Ocr.dump(temp);
-
+        // System.out.print(result);
         return result;
         } catch(IOException e) {
             result =  "mission failed :p";

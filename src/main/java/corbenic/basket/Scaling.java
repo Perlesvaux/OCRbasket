@@ -13,8 +13,8 @@ public class Scaling{
 
         //Creating new image with desired DPI
         BufferedImage resized = new BufferedImage(
-                original.getWidth()  * 600 / 25, 
-                original.getHeight() * 600 / 25, //72
+                original.getWidth()  * 300 / 25, 
+                original.getHeight() * 300 / 25, //72
                 BufferedImage.TYPE_INT_RGB
                 );
         
