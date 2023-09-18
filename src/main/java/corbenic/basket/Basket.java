@@ -17,7 +17,9 @@ public class Basket{
         String result = "";
         try{
             FileCopyUtils.copy(file.getInputStream(), new FileOutputStream(temp));
-            result = Ocr.dump(Scaling.process(temp));
+            // result = Ocr.dump(Scaling.process(temp));
+            // result = LazyImageProcessing.lazyOCR(Scaling.process(temp));
+            result = Ocr.curate(Scaling.process(temp));
         return result;
         } catch(IOException e) {
             result =  "mission failed :p";
