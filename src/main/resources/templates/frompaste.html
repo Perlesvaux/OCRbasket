@@ -7,61 +7,41 @@
 </head>
 <body>
     <h1>Paste some Image</h1>
-    <div id="imageContainer"></div>
-    <div id="result"></div>
+    <!-- <div id="imageContainer"></div> -->
+    <!-- <div id="result"></div> -->
+    <div id="imageContainer" style="padding: 40px; background-color: whitesmoke; width:690px; display:block; margin:auto; border-style: dotted;" contenteditable="True"></div>
 
+    <div id="result"></div>
 
 
     <script>
 const imageContainer = document.getElementById('imageContainer');
-const resultDiv = document.getElementById('result');
+const resultDiv      = document.getElementById('result');
 
-document.addEventListener('paste', async (event) => {
-    const items = event.clipboardData.items;
-
-    for (const item of items) {
-        if (item.type.indexOf('image') !== -1) {
-            const blob     = item.getAsFile();
-            const imageUrl = URL.createObjectURL(blob);
-
-            const imageElement = document.createElement('img');
-            imageElement.src = imageUrl;
-
-            // You can append the image to a container or use it as needed
-            imageContainer.appendChild(imageElement);
-
-            // Handle the image (e.g., upload to the server, process, etc.)
-            //handleImage(blob);
-
-
-
-    try {
+imageContainer.addEventListener('paste', async (event) => {
+try 
+    {
+        const item     = event.clipboardData.items[0];
+        const blob     = item.getAsFile();
         const formData = new FormData();
         formData.append('file', blob);
 
         const response = await fetch('/upload', {
             method: 'POST',
             body: formData,
-            headers: {
-                // Important: Omit 'Content-Type' header to let Spring handle it
-            },
+            headers: {},// Important: Omit 'Content-Type' header to let Spring handle it
         });
 
         if (response.ok) {
             const text = await response.text();
-            console.log(typeof text)
-            resultDiv.innerHTML = text;
+            resultDiv.innerText = text;
         } else {
             resultDiv.innerText = 'Error uploading the file.';
         }
-    } catch (error) {
+    } 
+catch (error)
+    {
         resultDiv.innerText = 'An error occurred: ' + error.message;
-    }
-
-
-
-
-        }
     }
 });
     </script>
