@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Paste Image</title>
+    <title>OCR from clipboard!</title>
     <!-- <link rel="icon" type="image/png" href="./favicon.ico"> -->
     <!-- <link rel="icon" href="favicon.ico" /> -->
+        <link href="styles.css" rel="stylesheet"/>
 </head>
 <body>
-    <h1>Paste some Image</h1>
+    <h1>OCR time!</h1>
     <!-- <div id="imageContainer"></div> -->
     <!-- <div id="result"></div> -->
-    <div id="imageContainer" style="padding: 40px; background-color: whitesmoke; width:690px; display:block; margin:auto; border-style: dotted;" contenteditable="True"></div>
 
-    <div id="result"></div>
+    <div id="grid"> 
+        <div id="imageContainer" contenteditable="True"></div>
 
+        <div id="result"></div>
+    </div>
 
     <script>
 const imageContainer = document.getElementById('imageContainer');
 const resultDiv      = document.getElementById('result');
 
 imageContainer.addEventListener('paste', async (event) => {
+                resultDiv.innerText = "Please wait..."
 try 
     {
         const item     = event.clipboardData.items[0];

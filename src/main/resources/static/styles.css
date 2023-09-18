@@ -1,0 +1,39 @@
+body {
+  background-color: #313636;
+}
+h1 {
+  color: pink;
+  text-align:center;
+}
+
+#grid{
+  display: grid;
+  grid-template-columns: auto;
+  gap: 10px;
+  background:#252828;
+  padding: 10px;
+}
+
+#grid>* {
+  padding: 40px; width:690px; display:block; margin:auto; border-style: solid;
+  color:#75f09e;
+  background-color: #304242;
+  border-color: pink;
+  border-radius: 10px;
+
+}
+
+#imageContainer{
+  text-align: center; 
+  border-color: #4a7550;
+  outline: 5px dashed yellow;
+  outline-offset: -10px;
+  background-color: #4a7550;
+  border-radius: 20px;
+  width:fit-content;
+  background-image: url("uploadimage.png");
+  background-repeat: no-repeat;
+  min-height:180px;
+  min-width: 180px;
+  background-position: center;
+}
