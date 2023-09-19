@@ -37,3 +37,34 @@ h1 {
   min-width: 180px;
   background-position: center;
 }
+
+#uploadbtn{
+  border-radius: 20px;
+  width:fit-content;
+  background-image: url("uploadimage.png");
+  background-repeat: no-repeat;
+  min-height:150px;
+  min-width: 150px;
+  background-position: center;
+}
+
+#fileInput{
+  border-radius: 20px;
+  width:fit-content;
+  background-image: url("plussign.png");
+  background-repeat: no-repeat;
+  min-height:71px;
+  min-width: 71px;
+  background-position: center;
+  background-color:#252828;
+
+}
+#uploadbtn:hover {
+  outline: 10px solid pink;
+  outline-offset: -10px;
+}
+
+#uploadbtn:active {
+  outline: 10px solid #75f09e;
+  outline-offset: -10px;
+}
