@@ -15,5 +15,7 @@ mvn clean package
 java -jar target/basket-0.0.1-SNAPSHOT.jar 
 ```
 ### Each endpoint is a different implementation
+```bash
 http://localhost:8080/frompaste
 http://localhost:8080/fromfile
+```
